@@ -18,12 +18,11 @@ public class UserDAOImpl implements UserDao{
         em.persist(user);
     }
 
+
     @Override
     public void removeUser(Long id) {
-        User user = em.find(User.class, id);
-        if (user != null) {
-            em.remove(user);
-        }
+        em.createQuery("DELETE FROM User u WHERE u.id = :id")
+                .setParameter("id", id).executeUpdate();
     }
 
     @Override
